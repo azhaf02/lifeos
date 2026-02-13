@@ -40,3 +40,7 @@ def predict_burnout():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+@app.route("/")
+def home():
+    return "LifeOS AI API Running"
