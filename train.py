@@ -2,7 +2,30 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestClassifier
 import joblib
+# from sentence_transformers import SentenceTransformer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
 
+data = pd.read_csv("chatbot_dataset.csv")
+
+X = data["user_input"]
+y = data["intent"]
+
+# text vectorization
+vectorizer = TfidfVectorizer()
+
+X_vec = vectorizer.fit_transform(X)
+
+# model train
+model = LogisticRegression()
+
+model.fit(X_vec, y)
+
+# save model
+joblib.dump(model, "chatbot_model.pkl")
+joblib.dump(vectorizer, "vectorizer.pkl")
+
+print("Model trained successfully")
 # Dummy training dataset
 data = pd.DataFrame({
     "completed_tasks": [2,5,8,1,7,6,3,9],
