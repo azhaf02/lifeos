@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import joblib
+from flask_cors import CORS
 import numpy as np
 
 app = Flask(__name__)
@@ -60,5 +61,6 @@ def get_chatbot_reply(message):
         "workload": "Try prioritizing the most important tasks first.",
         "tired": "You may need rest and hydration."
     }
+
 
     return responses.get(intent,"I'm here to help you stay productive.")
