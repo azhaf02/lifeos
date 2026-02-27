@@ -44,3 +44,21 @@ if __name__ == "__main__":
 @app.route("/")
 def home():
     return "LifeOS AI API Running"
+
+chat_model = joblib.load("chatbot_model.pkl")
+vectorizer = joblib.load("vectorizer.pkl")
+
+def get_chatbot_reply(message):
+
+    msg = vectorizer.transform([message])
+    intent = chat_model.predict(msg)[0]
+
+    responses = {
+        "stress": "It seems you may be stressed. Try focusing on one task at a time.",
+        "sleep": "Low sleep can reduce productivity. Aim for 7 hours tonight.",
+        "motivation": "Remember progress happens step by step.",
+        "workload": "Try prioritizing the most important tasks first.",
+        "tired": "You may need rest and hydration."
+    }
+
+    return responses.get(intent,"I'm here to help you stay productive.")
