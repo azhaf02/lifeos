@@ -4,7 +4,7 @@ from flask_cors import CORS
 import numpy as np
 
 app = Flask(__name__)
-
+CORS(app)
 prod_model = joblib.load("productivity_model.pkl")
 burn_model = joblib.load("burnout_model.pkl")
 
@@ -64,3 +64,4 @@ def get_chatbot_reply(message):
 
 
     return responses.get(intent,"I'm here to help you stay productive.")
+
